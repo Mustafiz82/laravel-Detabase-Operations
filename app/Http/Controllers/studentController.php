@@ -8,7 +8,6 @@ use Illuminate\Http\Request;
 class studentController extends Controller
 {
     function insertData(Request $request) {
-        $studentData = student::all();
 
         $student = new student();
 
@@ -17,6 +16,19 @@ class studentController extends Controller
         $student->Roll=$request->Roll;
         $student->save() ;
         
-        return $studentData ;
+        if($student){
+            echo "Data Added Successful ";
+        }
+        else{
+            echo "Somehting went wrong";
+        }
+    }
+
+ 
+    function list(){
+
+        $studentData = student::all();
+
+        return view("studentData" , ["student" => $studentData]);
     }
 }
