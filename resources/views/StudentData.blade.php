@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,7 +8,8 @@
 
     <style>
         /* Reset default margin and padding */
-        body, h1 {
+        body,
+        h1 {
             margin: 0;
             padding: 0;
         }
@@ -68,34 +70,65 @@
     </style>
 
 </head>
+
 <body>
 
     <div class="container">
         <h1>Student Information</h1>
 
         <!-- Table -->
-        <table>
-            <thead>
-                <tr>
-                    <th>Name</th>
-                    <th>Email</th>
-                    <th>Roll</th>
-                    <th>Created At</th>
-                </tr>
-            </thead>
-            <tbody>
-                <!-- Loop through the $student data -->
-                @foreach($student as $item)
+
+        <form action="/search" method="POST">
+            @csrf
+            <input type="search" name="search" placeholder="search by name">
+            <button>Search</button>
+        </form>
+
+        <form action="/delelt-multiple" method="POST">
+            <button>Submit</button>
+
+            <table>
+                <thead>
                     <tr>
-                        <td>{{ $item->Name }}</td>
-                        <td>{{ $item->Email }}</td>
-                        <td>{{ $item->Roll }}</td>
-                        <td>{{ $item->created_at->format('Y-m-d H:i') }}</td>
+
+                        <th>Select</th>
+                        <th>Id</th>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Roll</th>
+                        <th>Created At</th>
+                        <th>Operations</th>
                     </tr>
-                @endforeach
-            </tbody>
-        </table>
+                </thead>
+                <tbody>
+                    <!-- Loop through the $student data -->
+                    @foreach ($student as $item)
+                        <tr>
+                            <td><input type="checkbox" name="ids[]"></td>
+                            <td>{{ $item->Id }}</td>
+                            <td>{{ $item->Name }}</td>
+                            <td>{{ $item->Email }}</td>
+                            <td>{{ $item->Roll }}</td>
+                            <td>{{ $item->created_at->format('d-m-y') }}</td>
+                            <td><a style="margin-right: 10px" href="{{ '/delete/' . $item->Id }}">Delete</a><a
+                                    href="{{ '/edit/' . $item->Id }}">Edit</a></td>
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        </form>
+
+        {{ $student->links() }}
+
     </div>
 
+
+
 </body>
+<style>
+    .w-5.h-5 {
+        width: 20px;
+    }
+</style>
+
 </html>
