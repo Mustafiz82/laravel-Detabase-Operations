@@ -14,3 +14,4 @@ Route::get("/delete/{id}" , [studentController::class , "delete"]);
 Route::get("/edit/{id}" , [studentController::class , "edit"]);
 Route::put("/edit-Student/{id}" , [studentController::class , "editStudent"]);
 Route::post("/search" , [studentController::class , "search"]);
+Route::post("/delelt-multiple" , [studentController::class , "deleteMultiple"]);

@@ -85,7 +85,9 @@
         </form>
 
         <form action="/delelt-multiple" method="POST">
+            @csrf
             <button>Submit</button>
+
 
             <table>
                 <thead>
@@ -93,6 +95,8 @@
 
                         <th>Select</th>
                         <th>Id</th>
+
+                        <th>profile Pic</th>
                         <th>Name</th>
                         <th>Email</th>
                         <th>Roll</th>
@@ -104,8 +108,9 @@
                     <!-- Loop through the $student data -->
                     @foreach ($student as $item)
                         <tr>
-                            <td><input type="checkbox" name="ids[]"></td>
+                            <td><input type="checkbox" value="{{ $item->Id }}" name="ids[]"></td>
                             <td>{{ $item->Id }}</td>
+                            <td ><img src="{{ url('storage/'.$item->Images) }}" alt=""></td>
                             <td>{{ $item->Name }}</td>
                             <td>{{ $item->Email }}</td>
                             <td>{{ $item->Roll }}</td>
@@ -118,6 +123,11 @@
             </table>
         </form>
 
+        
+        @foreach($student as $value)
+            {{ $value->Images}}
+        @endforeach
+
         {{ $student->links() }}
 
     </div>
@@ -128,6 +138,10 @@
 <style>
     .w-5.h-5 {
         width: 20px;
+    }
+    img{
+        width: 50px;
+        height: 50px;
     }
 </style>
 
